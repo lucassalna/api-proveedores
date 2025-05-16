@@ -18,3 +18,30 @@ class Proveedor(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+# ...existing code...
+
+class Requisicion(models.Model):
+    URGENCIA_CHOICES = [
+        ('BAJA', 'Baja'),
+        ('MEDIA', 'Media'),
+        ('ALTA', 'Alta'),
+    ]
+    
+    producto = models.CharField(max_length=100)
+    cantidad = models.IntegerField()
+    urgencia = models.CharField(max_length=5, choices=URGENCIA_CHOICES)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.producto} - {self.cantidad} - {self.urgencia}"
+    
+class Pedido(models.Model):
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    requisicion = models.OneToOneField(Requisicion, on_delete=models.CASCADE)
+    precio_total = models.DecimalField(max_digits=12, decimal_places=2)
+    tiempo_respuesta = models.IntegerField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Pedido {self.requisicion.producto} - {self.proveedor.nombre}"
