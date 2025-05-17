@@ -1,11 +1,10 @@
-from .models import Proveedor, Requisicion
+from .models import Proveedor, Requisicion, Pedido
 from .serializers import ProveedorSerializer, RequisicionSerializer, PedidoSerializer
 from rest_framework.decorators import action
 from rest_framework import viewsets, permissions, filters, status
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from .services import ProveedorService
-from . import asignacion_proveedor
+from .services import ProveedorService, PedidoService
 
 class ProveedorViewSet(viewsets.ModelViewSet):
     queryset = Proveedor.objects.all()
@@ -154,7 +153,7 @@ class RequisicionViewSet(viewsets.ModelViewSet):
         requisicion = serializer.save()
         
         # Asignar proveedor y crear pedido
-        pedido = asignacion_proveedor.AsignacionService.asignar_proveedor(requisicion)
+        pedido = PedidoService.asignar_proveedor(requisicion)
         
         if pedido:
             return Response({
@@ -166,3 +165,24 @@ class RequisicionViewSet(viewsets.ModelViewSet):
                 'requisicion': RequisicionSerializer(requisicion).data,
                 'error': 'No se encontró un proveedor adecuado'
             }, status=status.HTTP_201_CREATED)
+        
+class PedidoViewSet(viewsets.ModelViewSet):
+    queryset = Pedido.objects.all()
+    serializer_class = PedidoSerializer
+    permission_classes = [permissions.AllowAny]
+    http_method_names = ['get', 'head']  # Solo permitir métodos GET
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        
+        # Permitir filtrado por fecha
+        fecha_inicio = request.query_params.get('fecha_inicio')
+        fecha_fin = request.query_params.get('fecha_fin')
+        
+        if fecha_inicio:
+            queryset = queryset.filter(fecha_creacion__gte=fecha_inicio)
+        if fecha_fin:
+            queryset = queryset.filter(fecha_creacion__lte=fecha_fin)
+            
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)

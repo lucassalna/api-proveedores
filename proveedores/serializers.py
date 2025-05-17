@@ -28,5 +28,4 @@ class PedidoSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Pedido
-        fields = ['id', 'proveedor', 'proveedor_nombre', 'requisicion', 
-                 'precio_total', 'tiempo_respuesta', 'fecha_creacion']
+        fields = ['proveedor_nombre','precio_total', 'tiempo_respuesta', 'fecha_creacion']

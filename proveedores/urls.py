@@ -1,5 +1,5 @@
 from rest_framework import routers
-from .api import ProveedorViewSet, RequisicionViewSet
+from .api import ProveedorViewSet, RequisicionViewSet, PedidoViewSet
 from django.urls import path, re_path
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 
 router.register('api/proveedores', ProveedorViewSet, 'proveedores')
 router.register('api/requisiciones', RequisicionViewSet, 'requisiciones')
+router.register('api/pedidos', PedidoViewSet, 'pedidos')
 
 # Configuración de la documentación con drf-yasg
 schema_view = get_schema_view(
