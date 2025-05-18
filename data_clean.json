@@ -1,0 +1,58 @@
+[
+    {
+        "model": "proveedores.proveedor",
+        "pk": 1,
+        "fields": {
+            "nombre": "lucas",
+            "telefono": "3204150881",
+            "direccion": "direccion",
+            "email": "lucassalna06@gmail.com",
+            "material": "madera",
+            "precio": "120000",
+            "tiempo_de_respuesta": 1,
+            "fecha_registro": "2025-05-12T00:36:13.948Z"
+        }
+    },
+    {
+        "model": "proveedores.proveedor",
+        "pk": 2,
+        "fields": {
+            "nombre": "cristian",
+            "telefono": "3123142342",
+            "direccion": "direccion",
+            "email": "cristian@cristian.com",
+            "material": "acero",
+            "precio": "120000",
+            "tiempo_de_respuesta": 1,
+            "fecha_registro": "2025-05-12T00:36:58.568Z"
+        }
+    },
+    {
+        "model": "proveedores.proveedor",
+        "pk": 3,
+        "fields": {
+            "nombre": "cristhain",
+            "telefono": "9876543210",
+            "direccion": "direccion",
+            "email": "cristhain@cristhian.com",
+            "material": "madera",
+            "precio": "120000",
+            "tiempo_de_respuesta": 3,
+            "fecha_registro": "2025-05-12T00:37:30.189Z"
+        }
+    },
+    {
+        "model": "proveedores.proveedor",
+        "pk": 4,
+        "fields": {
+            "nombre": "sara",
+            "telefono": "1234567890",
+            "direccion": "direccion",
+            "email": "sara@sara.com",
+            "material": "madera",
+            "precio": "100000",
+            "tiempo_de_respuesta": 2,
+            "fecha_registro": "2025-05-12T00:39:01.565Z"
+        }
+    }
+]

@@ -76,13 +76,17 @@ WSGI_APPLICATION = 'CasoDeEstudioParalelas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Nombre de la base de datos
+        'USER': 'postgres',  # Usuario de PostgreSQL
+        'PASSWORD': 'sqlite',
+        'HOST': 'localhost',  # O la dirección de tu servidor PostgreSQL
+        'PORT': '5432',       # Puerto por defecto de PostgreSQL
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
