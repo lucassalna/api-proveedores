@@ -3,7 +3,10 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/usr/app
     ports:
@@ -12,7 +15,7 @@ services:
       - db
     environment:
       - DEBUG=1
-      - DATABASE_URL=postgres://postgres:tucontraseña@db:5432/django_db
+      - DATABASE_URL=postgres://postgres:quack@db:5432/django_db
 
   db:
     image: postgres:17
@@ -20,7 +23,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
       - ./init-scripts:/docker-entrypoint-initdb.d/
     environment:
-      - POSTGRES_PASSWORD=tucontraseña
+      - POSTGRES_PASSWORD=quack
       - POSTGRES_USER=postgres
       - POSTGRES_DB=django_db
     ports:
