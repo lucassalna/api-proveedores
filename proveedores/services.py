@@ -5,46 +5,6 @@ from django.db.models import Q
 
 class ProveedorService:
     @staticmethod
-    def get_all_proveedores():
-        """Obtiene todos los proveedores"""
-        return Proveedor.objects.all()
-    
-    @staticmethod
-    def get_proveedor_by_id(proveedor_id: int) -> Optional[Proveedor]:
-        """Obtiene un proveedor específico por su ID"""
-        try:
-            return Proveedor.objects.get(id=proveedor_id)
-        except Proveedor.DoesNotExist:
-            return None
-    
-    @staticmethod
-    def create_proveedor(data: Dict[str, Any]) -> Proveedor:
-        """Crea un nuevo proveedor con los datos proporcionados"""
-        return Proveedor.objects.create(**data)
-    
-    @staticmethod
-    def update_proveedor(proveedor_id: int, data: Dict[str, Any]) -> Optional[Proveedor]:
-        """Actualiza un proveedor existente"""
-        try:
-            proveedor = Proveedor.objects.get(id=proveedor_id)
-            for key, value in data.items():
-                setattr(proveedor, key, value)
-            proveedor.save()
-            return proveedor
-        except Proveedor.DoesNotExist:
-            return None
-    
-    @staticmethod
-    def delete_proveedor(proveedor_id: int) -> bool:
-        """Elimina un proveedor por su ID"""
-        try:
-            proveedor = Proveedor.objects.get(id=proveedor_id)
-            proveedor.delete()
-            return True
-        except Proveedor.DoesNotExist:
-            return False
-    
-    @staticmethod
     def filter_proveedores(material: Optional[str] = None, search_query: Optional[str] = None, 
                            min_precio: Optional[float] = None, max_precio: Optional[float] = None,
                            order_by: Optional[str] = None) -> List[Proveedor]:
@@ -76,6 +36,7 @@ class ProveedorService:
             queryset = queryset.order_by(order_by)
         
         return list(queryset)
+    
 class PedidoService:
     @staticmethod
     def asignar_proveedor(requisicion):
