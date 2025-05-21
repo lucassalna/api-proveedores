@@ -79,8 +79,15 @@ WSGI_APPLICATION = 'CasoDeEstudioParalelas.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_db',
+        'USER': 'postgres',
+        'PASSWORD': 'quack',
+        'HOST': 'db',  # O 'localhost' si no usas Docker Compose
+        'PORT': '5432',
+        'OPTIONS': {
+            'client_encoding': 'UTF8',
+        },
     }
 }
 
