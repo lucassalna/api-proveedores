@@ -19,7 +19,7 @@ class Proveedor(models.Model):
     def __str__(self):
         return self.nombre
     
-# ...existing code...
+
 
 class Requisicion(models.Model):
     URGENCIA_CHOICES = [
