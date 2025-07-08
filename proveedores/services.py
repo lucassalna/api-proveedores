@@ -2,6 +2,8 @@ from .models import Proveedor, Pedido
 from decimal import Decimal
 from typing import List, Dict, Any, Optional
 from django.db.models import Q
+import requests
+from django.http import JsonResponse
 
 class ProveedorService:
     @staticmethod
@@ -76,12 +78,25 @@ class PedidoService:
             precio_total = mejor_proveedor.precio * requisicion.cantidad
             
             # Crear pedido
-            pedido = Pedido.objects.create(
-                proveedor=mejor_proveedor,
-                requisicion=requisicion,
-                precio_total=precio_total,
-                tiempo_respuesta=mejor_proveedor.tiempo_de_respuesta
-            )
-            return pedido
+            
+            # URL de productos
+            URL_API = "https://jsonplaceholder.typicode.com/albums"
+
+            pedido={
+                "proveedor": mejor_proveedor.id,
+                "producto": requisicion.producto,
+                "cantidad": requisicion.cantidad,
+                "precio_total": precio_total,
+                
+            }
+            
+            try:
+                response = requests.post(URL_API, json=pedido, timeout=30)
+                response.raise_for_status()  # Lanza excepción si hay error HTTP
+            
+                 
+            except requests.exceptions.RequestException as e:
+                return JsonResponse({"error": str(e)}, status=500)
+                
         
         return None
