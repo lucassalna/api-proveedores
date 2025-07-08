@@ -6,16 +6,16 @@ services:
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+             python manage.py runserver 0.0.0.0:9217"
     volumes:
       - .:/usr/app
     ports:
-      - "8000:8000"
+      - "9217:9217"
     depends_on:
       - db
     environment:
       - DEBUG=1
-      - DATABASE_URL=postgres://postgres:quack@db:5432/django_db
+      - DATABASE_URL=postgres://postgres:quack@db:7821/django_db
 
   db:
     image: postgres:17
@@ -26,8 +26,9 @@ services:
       - POSTGRES_PASSWORD=quack
       - POSTGRES_USER=postgres
       - POSTGRES_DB=django_db
+      - POSTGRES_PORT=7821
     ports:
-      - "5432:5432"
+      - "7821:5432"
 
 volumes:
   postgres_data:
