@@ -7,9 +7,9 @@ from drf_yasg import openapi
 
 router = routers.DefaultRouter()
 
-router.register('api/proveedores', ProveedorViewSet, 'proveedores')
-router.register('api/requisiciones', RequisicionViewSet, 'requisiciones')
-router.register('api/pedidos', PedidoViewSet, 'pedidos')
+router.register('proveedores', ProveedorViewSet, 'proveedores')
+router.register('requisiciones', RequisicionViewSet, 'requisiciones')
+router.register('pedidos', PedidoViewSet, 'pedidos')
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -22,10 +22,6 @@ schema_view = get_schema_view(
       e inclúyelo en cada solicitud como un encabezado:
       
       Authorization: Bearer tu_token_jwt
-
-      IMPORTANTE
-
-      cada endpoint lleva el prefijo api/
       """,
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="contact@example.com"),
