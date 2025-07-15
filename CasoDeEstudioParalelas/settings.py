@@ -143,4 +143,14 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'proveedores.authentication.ExternalJWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # Mantener autenticación por sesión si la necesitas
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Requiere autenticación por defecto
+    ],
 }
+# Configuración para la API externa (ajusta según sea necesario)
+EXTERNAL_JWT_URL = "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/auth/login/"
+EXTERNAL_JWT_VERIFY_URL = "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/auth/verify/"

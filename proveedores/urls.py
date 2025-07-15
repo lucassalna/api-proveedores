@@ -1,6 +1,6 @@
 from rest_framework import routers
 from .api import ProveedorViewSet, RequisicionViewSet, PedidoViewSet
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -11,12 +11,18 @@ router.register('api/proveedores', ProveedorViewSet, 'proveedores')
 router.register('api/requisiciones', RequisicionViewSet, 'requisiciones')
 router.register('api/pedidos', PedidoViewSet, 'pedidos')
 
-# Configuración de la documentación con drf-yasg
 schema_view = get_schema_view(
    openapi.Info(
       title="Proveedores API",
       default_version='v1',
-      description="API para gestionar proveedores y materiales",
+      description="""
+      API para gestionar proveedores y materiales.
+      
+      **Autenticación**: Obtén un token de http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/auth/login/
+      e inclúyelo en cada solicitud como un encabezado:
+      
+      Authorization: Bearer tu_token_jwt
+      """,
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="contact@example.com"),
       license=openapi.License(name="BSD License"),

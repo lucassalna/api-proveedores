@@ -76,23 +76,45 @@ class PedidoService:
         if mejor_proveedor:
             # Calcular precio total final en enteros
             precio_total = mejor_proveedor.precio * requisicion.cantidad
-            
+
+            Pedido.objects.create(
+                proveedor=mejor_proveedor,
+                requisicion=requisicion,
+                precio_total=precio_total,
+                tiempo_respuesta=mejor_proveedor.tiempo_de_respuesta
+            )
+
+            #token para la api
+            URL_token = "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/auth/login/"
+
+            data = {
+                "username": "provider_service",
+                "password": "provider123"
+            }
+
+            token = requests.post(URL_token, data=data).json().get('access')
+
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {token}",
+            }
+
             # Crear pedido
             
             # URL de productos
-            URL_API = "https://jsonplaceholder.typicode.com/albums"
+            URL_API = "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/api/proveedores-despachos/"
 
-            pedido={
-                "proveedor": mejor_proveedor.id,
-                "producto": requisicion.producto,
-                "cantidad": requisicion.cantidad,
-                "precio_total": precio_total,
-                
+            pedido_despacho ={
+                "external_order_id": Pedido.objects.last().id,
+                "supplier_name": mejor_proveedor.nombre,
+                "product_name": requisicion.producto,
+                "quantity": requisicion.cantidad,
             }
             
             try:
-                response = requests.post(URL_API, json=pedido, timeout=30)
+                response = requests.post(URL_API, json=pedido_despacho, headers=headers)
                 response.raise_for_status()  # Lanza excepción si hay error HTTP
+                return pedido_despacho
             
                  
             except requests.exceptions.RequestException as e:

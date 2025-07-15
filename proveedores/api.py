@@ -9,7 +9,7 @@ from .services import ProveedorService, PedidoService
 class ProveedorViewSet(viewsets.ModelViewSet):
     queryset = Proveedor.objects.all()
     serializer_class = ProveedorSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]  # Requiere autenticación
     
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['material']
@@ -59,7 +59,7 @@ class ProveedorViewSet(viewsets.ModelViewSet):
 class RequisicionViewSet(viewsets.ModelViewSet):
     queryset = Requisicion.objects.all()
     serializer_class = RequisicionSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -75,6 +75,7 @@ class RequisicionViewSet(viewsets.ModelViewSet):
                 'pedido': PedidoSerializer(pedido).data
             }, status=status.HTTP_201_CREATED)
         else:
+            requisicion.delete()  # Eliminar la requisición si no se encontró proveedor
             return Response({
                 'requisicion': RequisicionSerializer(requisicion).data,
                 'error': 'No se encontró un proveedor adecuado'
@@ -83,8 +84,8 @@ class RequisicionViewSet(viewsets.ModelViewSet):
 class PedidoViewSet(viewsets.ModelViewSet):
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
-    permission_classes = [permissions.AllowAny]
-    http_method_names = ['get', 'head']  # Solo permitir métodos GET
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head', "delete"]  # Solo permitir métodos GET
     
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
