@@ -22,6 +22,10 @@ schema_view = get_schema_view(
       e inclúyelo en cada solicitud como un encabezado:
       
       Authorization: Bearer tu_token_jwt
+
+      IMPORTANTE
+
+      cada endpoint lleva el prefijo api/
       """,
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="contact@example.com"),
