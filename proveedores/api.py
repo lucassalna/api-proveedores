@@ -85,7 +85,7 @@ class PedidoViewSet(viewsets.ModelViewSet):
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
     permission_classes = [permissions.IsAuthenticated]
-    http_method_names = ['get', 'head', "delete"]  # Solo permitir métodos GET
+    http_method_names = ['get', 'head', "delete", "post"]  # Solo permitir métodos GET
     
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
