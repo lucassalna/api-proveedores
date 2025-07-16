@@ -46,7 +46,7 @@ schema_view = get_schema_view(
         description="""
       API para gestionar proveedores y materiales.
       
-      **Autenticación**: Obtén un token de http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/auth/login/
+      **Autenticación**: Obtén un token de http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/api/auth/login/
       e inclúyelo en cada solicitud como un encabezado:
       
       Authorization: Bearer tu_token_jwt

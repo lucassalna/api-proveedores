@@ -85,7 +85,7 @@ class PedidoService:
             )
 
             #token para la api
-            URL_token = "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/auth/login/"
+            URL_token = "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/api/auth/login/"
 
             data = {
                 "username": "provider_service",
