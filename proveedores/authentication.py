@@ -16,7 +16,7 @@ class ExternalJWTAuthentication(authentication.BaseAuthentication):
         try:
             #Verificar el token con el endpoint de la API externa
             response = requests.post(
-                "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/auth/verify/",
+                "http://ec2-3-140-254-107.us-east-2.compute.amazonaws.com/api/auth/verify/",
                 json={"token": token}
             )
             
